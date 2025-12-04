@@ -36,12 +36,19 @@ def submit_expense(user):
 
 
 def view_expenses(user):
-    print("\n=== My Expenses ===")
+    print("\n=== My Expenses ===\n")
     records = get_expenses_for_user(user["id"])
     if not records:
         print("No expenses found.\n")
         return
 
+    # Print table header
+    header_format = "{:<8} {:<12} {:<35} {:<12} {:<12} {:<20}"
+    print(header_format.format("ID", "Amount", "Description", "Date", "Status", "Comment"))
+    print("─" * 105)
+
+    # Print each expense as a table row
+    row_format = "{:<8} ${:<11.2f} {:<35} {:<12} {:<12} {:<20}"
     for e in records:
         description = e['description']
         if len(description) > 35:
