@@ -1,6 +1,6 @@
 from storage import add_expense, add_approval, get_expenses_for_user, \
-                     get_expense_by_id, get_approval_by_expense, \
-                     update_expense, delete_expense
+    get_expense_by_id, get_approval_by_expense, \
+    update_expense, delete_expense
 
 import datetime
 
