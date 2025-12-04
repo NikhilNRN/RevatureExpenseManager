@@ -3,12 +3,51 @@ from storage import add_expense, add_approval, get_expenses_for_user, \
     update_expense, delete_expense
 
 import datetime
+import logging
+import os
+
+
+# Setup logging
+def setup_logging():
+    """Configure logging for the expense application"""
+    # Create logs directory if it doesn't exist
+    if not os.path.exists('logs'):
+        os.makedirs('logs')
+
+    # Configure logging format
+    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    date_format = '%Y-%m-%d %H:%M:%S'
+
+    # File handler - logs everything to file
+    file_handler = logging.FileHandler('logs/employee_app.log')
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(logging.Formatter(log_format, date_format))
+
+    # Console handler - logs warnings and above to console
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(logging.Formatter(log_format, date_format))
+
+    # Configure root logger
+    logger = logging.getLogger('expense_app')
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+
+    return logger
+
+
+# Initialize logger
+logger = setup_logging()
 
 
 def submit_expense(user):
+    logger.info(f"User {user['username']} (ID: {user['id']}) starting expense submission")
     print("\n=== Submit Expense ===")
 
     # Validate amount with loop
+    amt = None
+    attempts = 0
     while True:
         try:
             amt = float(input("Amount: "))
