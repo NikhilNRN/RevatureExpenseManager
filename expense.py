@@ -7,7 +7,21 @@ import datetime
 
 def submit_expense(user):
     print("\n=== Submit Expense ===")
-    amt = float(input("Amount: "))
+
+    # Validate amount with loop
+    while True:
+        try:
+            amt = float(input("Amount: "))
+            if amt > 5000:
+                print("Error: Amount cannot exceed $5000. Please re-enter.")
+                continue
+            if amt <= 0:
+                print("Error: Amount must be greater than $0. Please re-enter.")
+                continue
+            break
+        except ValueError:
+            print("Error: Invalid amount. Please enter a valid number.")
+
     desc = input("Description: ")
     date = input("Date (YYYY-MM-DD, leave empty for today): ")
 
