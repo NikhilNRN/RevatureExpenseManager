@@ -43,15 +43,25 @@ def view_expenses(user):
         return
 
     for e in records:
-        print(f"""
-ID: {e['id']}
-Amount: ${e['amount']}
-Description: {e['description']}
-Date: {e['date']}
-Status: {e['status']}
-Comment: {e['comment'] if e['comment'] else 'None'}
-------------------------
-""")
+        description = e['description']
+        if len(description) > 35:
+            description = description[:32] + "..."
+
+        comment = e['comment'] if e['comment'] else 'None'
+        if len(comment) > 20:
+            comment = comment[:17] + "..."
+
+        print(row_format.format(
+            e['id'],
+            e['amount'],
+            description,
+            e['date'],
+            e['status'],
+            comment
+        ))
+
+    print("─" * 105)
+    print(f"Total expenses: {len(records)}\n")
 
 
 def edit_expense(user):
