@@ -4,7 +4,7 @@ from menu import employee_menu
 
 
 def main():
-    print("=== Employee Expense App (Mock Version) ===")
+    print("=== Employee Expense App ===")
     while True:
         user = login()
         if user:
