@@ -1,3 +1,5 @@
+import logging
+
 from auth import login
 from menu import employee_menu
 
